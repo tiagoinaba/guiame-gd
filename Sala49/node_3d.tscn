@@ -1,0 +1,134 @@
+[gd_scene load_steps=17 format=3 uid="uid://crja1lbir2kff"]
+
+[ext_resource type="Script" path="res://Camera.gd" id="1_wmcda"]
+[ext_resource type="PackedScene" uid="uid://bfbo3arqiqlcr" path="res://Assets/ParedeD.glb" id="2_dhrkx"]
+[ext_resource type="PackedScene" uid="uid://bw8vvnaeflwp5" path="res://Assets/ParedePorta.glb" id="3_2j83r"]
+[ext_resource type="PackedScene" uid="uid://3mgp323lfnpm" path="res://Assets/Palco.glb" id="4_la2ed"]
+[ext_resource type="PackedScene" uid="uid://dgdg8knpyi8cl" path="res://Assets/FileiraC.glb" id="5_uw43g"]
+[ext_resource type="PackedScene" uid="uid://c80itcrbdb3xq" path="res://Assets/ParedeFT.glb" id="6_yasp3"]
+[ext_resource type="PackedScene" uid="uid://b3cos2qaxmer8" path="res://Assets/Obstaculo1.glb" id="7_ww5i0"]
+[ext_resource type="Material" uid="uid://bira66k854cm0" path="res://Textures/Usuario.tres" id="8_30mg6"]
+[ext_resource type="Material" uid="uid://ch85jf4gwicc4" path="res://Textures/Medi.tres" id="8_t3nbm"]
+
+[sub_resource type="GDScript" id="GDScript_7qqqr"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	var output = []
+	var exit_code = OS.execute(\"python\", [\"-m\", \"lswn\"], output, true)
+	var data = JSON.parse_string(output[0])
+	data = json.parse(data)
+	data = data.filter(filter_routers)
+	print(data)
+
+func filter_routers(router):
+	if router.ssid in ('@tkinaba', 'Guia-me1', 'Guiame', 'Antônio'):
+		return True
+	return False
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+"
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gt7cf"]
+
+[sub_resource type="GDScript" id="GDScript_lxiqj"]
+script/source = "extends MeshInstance3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="SphereMesh" id="SphereMesh_35yg3"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_00fc6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3xax"]
+albedo_color = Color(0.000693898, 0.000693898, 0.000693898, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qvwcr"]
+
+[node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_7qqqr")
+
+[node name="ParedeD" parent="." instance=ExtResource("2_dhrkx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.64, 0, 9.96635)
+
+[node name="ParedePorta" parent="." instance=ExtResource("3_2j83r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.939)
+
+[node name="Palco" parent="." instance=ExtResource("4_la2ed")]
+transform = Transform3D(1, 0.000296706, 0, -0.000296706, 1, 0, 0, 0, 1, 7.78156, 0.292675, 1.92128)
+
+[node name="Fileira5" parent="." instance=ExtResource("5_uw43g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6651, 0.86, 13.9058)
+
+[node name="Fileira4" parent="." instance=ExtResource("5_uw43g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.543, 0.86, 13.9053)
+
+[node name="Fileira3" parent="." instance=ExtResource("5_uw43g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4058, 0.86, 13.9053)
+
+[node name="Fileira2" parent="." instance=ExtResource("5_uw43g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.285, 0.86, 13.9053)
+
+[node name="Obstaculo1" parent="." instance=ExtResource("7_ww5i0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6317, 0.998837, 1.87955)
+
+[node name="Fileira1" parent="." instance=ExtResource("5_uw43g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.116, 0.86, 13.9053)
+
+[node name="FileiraC" parent="." instance=ExtResource("5_uw43g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.931, 0.86, 13.9053)
+
+[node name="FileiraC2" parent="." instance=ExtResource("5_uw43g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.772, 0.86, 13.9053)
+
+[node name="ParedeFT2" parent="." instance=ExtResource("6_yasp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0.421217)
+
+[node name="ParedeFT" parent="." instance=ExtResource("6_yasp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 19.4663)
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 7.92815, 11.1628, 24.8706)
+script = ExtResource("1_wmcda")
+
+[node name="User" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.9, 0, 0, 0, 1.69973, -0.0160684, 0, 0.0303515, 0.899857, 13.631, 1.72604, 5.77895)
+material_override = ExtResource("8_30mg6")
+mesh = SubResource("CapsuleMesh_gt7cf")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("8_t3nbm")
+script = SubResource("GDScript_lxiqj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/User"]
+transform = Transform3D(2, 0, 0, 0, 2, 2.23517e-08, 0, -2.23517e-08, 2, -0.00633621, 0.00553107, -9.87053e-05)
+visible = false
+transparency = 0.8
+mesh = SubResource("SphereMesh_35yg3")
+
+[node name="Chao" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(7.64, 0, 0, 0, 9.14, 0, 0, 0, 9.14, 8, 0, 9.96635)
+mesh = SubResource("PlaneMesh_00fc6")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_j3xax")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 8, 21.6882, 9.96635)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.0119871, 0, -0.309977, 0, 0.31, 0, 0.983927, 0, -0.00377645, 9.56657, 4.807, 0.846213)
+visible = false
+mesh = SubResource("BoxMesh_qvwcr")
+surface_material_override/0 = ExtResource("8_t3nbm")
