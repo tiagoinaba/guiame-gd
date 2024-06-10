@@ -13,22 +13,43 @@
 [sub_resource type="GDScript" id="GDScript_7qqqr"]
 script/source = "extends Node3D
 
+const HOST = \"localhost\"
+const PORT = 42069
+
+var tcp_client = TCPClient.new(HOST, PORT)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var output = []
 	var exit_code = OS.execute(\"python\", [\"-m\", \"lswn\"], output, true)
 	var data = JSON.parse_string(output[0])
-	data = json.parse(data)
 	data = data.filter(filter_routers)
-	print(data)
-
-func filter_routers(router):
-	if router.ssid in ('@tkinaba', 'Guia-me1', 'Guiame', 'Antônio'):
-		return True
-	return False
+	print(JSON.stringify(data))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func filter_routers(router):
+	if router.ssid in [\"@tkinaba\", \"Guia-me1\", \"Guiame\", \"Antônio\"]:
+		return true
+	return false
+
+class TCPClient:
+	var conn: StreamPeerTCP
+	var host: String
+	var port: int
+	
+	func _init(host, port):
+		self.host = host
+		self.port = port
+		self.conn = StreamPeerTCP.new()
+		var error = self.conn.connect_to_host(self.host, self.port)
+		self.conn.poll()
+		if error != OK:
+			print(error)
+		else:
+			print(\"Conectado com sucesso\")
 "
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gt7cf"]
